@@ -1,8 +1,10 @@
+import 'package:Sallate/models/home_model.dart';
+import 'package:Sallate/modules/products/product_details.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:shop_app/layout/shop_app/cubit/shopCubit.dart';
-import 'package:shop_app/shared/styles/colors.dart';
+import 'package:Sallate/layout/shop_app/cubit/shopCubit.dart';
+import 'package:Sallate/shared/styles/colors.dart';
 
 void navigateTo(context, widget) =>
     Navigator.push(context, MaterialPageRoute(builder: (context) => widget));
@@ -114,12 +116,10 @@ Widget defaultTextFormField({
       keyboardType: keyboardType,
       controller: controller,
       textInputAction: action,
-      style: TextStyle(
-      ),
+      style: TextStyle(),
       decoration: InputDecoration(
         labelText: labelText,
-        labelStyle: TextStyle(
-        ),
+        labelStyle: TextStyle(),
         hintText: hintText,
         prefixIcon: Icon(
           prefixIcon,
@@ -287,6 +287,129 @@ Widget buildListProduct(
                               ShopCubit.get(context).favourites![model.id]!
                                   ? defaultColor
                                   : Colors.grey,
+                          child: Icon(
+                            Icons.favorite_border,
+                            size: 20.0,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+
+Widget buildGridProduct(ProductModel model, cubit, BuildContext context) =>
+    InkWell(
+      onTap: () => navigateTo(context, ProductDetails(productModel: model)),
+      child: Container(
+        color: Colors.white,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Stack(
+              alignment: AlignmentDirectional.bottomStart,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(bottom: 8.0),
+                  child: CachedNetworkImage(
+                    imageUrl: "${model.image}",
+                    placeholder: (context, url) => SizedBox(
+                      height: 200.0,
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    ),
+                    height: 200.0,
+                    width: double.infinity,
+                  ),
+                ),
+                if (model.discount != 0)
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    decoration: BoxDecoration(
+                      color: Colors.red[600],
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(100.0),
+                      ),
+                    ),
+                    child: Text(
+                      "Discount",
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.0),
+              child: Column(
+                children: [
+                  Text(
+                    "${model.name}",
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      height: 1.3,
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "${model.price.round()} \$",
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w500,
+                          color: defaultColor,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 5.0,
+                      ),
+                      if (model.discount != 0)
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                          decoration: BoxDecoration(
+                            color: Colors.grey[400],
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          child: Text(
+                            "${model.oldPrice.round()}",
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white,
+                              decoration: TextDecoration.lineThrough,
+                            ),
+                          ),
+                        ),
+                      Spacer(),
+                      IconButton(
+                        onPressed: () {
+                          cubit.changeFavorites(model.id);
+                        },
+                        icon: CircleAvatar(
+                          radius: 15.0,
+                          backgroundColor: cubit.favourites[model.id]
+                              ? defaultColor
+                              : Colors.grey,
                           child: Icon(
                             Icons.favorite_border,
                             size: 20.0,

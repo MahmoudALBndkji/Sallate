@@ -1,13 +1,13 @@
+import 'package:Sallate/layout/shop_app/shopLayout.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/layout/shop_app/shopLayout.dart';
-import 'package:shop_app/modules/login/cubit/cubit.dart';
-import 'package:shop_app/modules/login/cubit/states.dart';
-import 'package:shop_app/modules/register/shop_register_screen.dart';
-import 'package:shop_app/shared/components/components.dart';
-import 'package:shop_app/shared/components/constants.dart';
-import 'package:shop_app/shared/network/local/cache_helper.dart';
+import 'package:Sallate/modules/login/cubit/cubit.dart';
+import 'package:Sallate/modules/login/cubit/states.dart';
+import 'package:Sallate/modules/register/shop_register_screen.dart';
+import 'package:Sallate/shared/components/components.dart';
+import 'package:Sallate/shared/components/constants.dart';
+import 'package:Sallate/shared/network/local/cache_helper.dart';
 
 class ShopLoginScreen extends StatelessWidget {
   TextEditingController emailController = TextEditingController();

@@ -1,18 +1,18 @@
+import 'package:Sallate/layout/shop_app/cubit/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/layout/shop_app/cubit/states.dart';
-import 'package:shop_app/models/categories_model.dart';
-import 'package:shop_app/models/change_favorites.dart';
-import 'package:shop_app/models/favourites_model.dart';
-import 'package:shop_app/models/home_model.dart';
-import 'package:shop_app/models/login_model.dart';
-import 'package:shop_app/modules/categories/categories_screen.dart';
-import 'package:shop_app/modules/favourites/favourites_screen.dart';
-import 'package:shop_app/modules/products/products_screen.dart';
-import 'package:shop_app/modules/settings/settings_screen.dart';
-import 'package:shop_app/shared/components/constants.dart';
-import 'package:shop_app/shared/network/end_point.dart';
-import 'package:shop_app/shared/network/remote/dio_helper.dart';
+import 'package:Sallate/models/categories_model.dart';
+import 'package:Sallate/models/change_favorites.dart';
+import 'package:Sallate/models/favourites_model.dart';
+import 'package:Sallate/models/home_model.dart';
+import 'package:Sallate/models/login_model.dart';
+import 'package:Sallate/modules/categories/categories_screen.dart';
+import 'package:Sallate/modules/favourites/favourites_screen.dart';
+import 'package:Sallate/modules/products/products_screen.dart';
+import 'package:Sallate/modules/settings/settings_screen.dart';
+import 'package:Sallate/shared/components/constants.dart';
+import 'package:Sallate/shared/network/end_point.dart';
+import 'package:Sallate/shared/network/remote/dio_helper.dart';
 
 class ShopCubit extends Cubit<ShopStates> {
   ShopCubit() : super(ShopInitialState());
@@ -32,8 +32,7 @@ class ShopCubit extends Cubit<ShopStates> {
   }
 
   HomeModel? homeModel;
-
-  Map<int, bool>? favourites = {};
+  Map<int, bool> favourites = {};
 
   void getHomeData() {
     emit(ShopLoadingHomeDataState());

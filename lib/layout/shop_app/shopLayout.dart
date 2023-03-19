@@ -1,9 +1,9 @@
+import 'package:Sallate/layout/shop_app/cubit/shopCubit.dart';
+import 'package:Sallate/layout/shop_app/cubit/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/layout/shop_app/cubit/shopCubit.dart';
-import 'package:shop_app/layout/shop_app/cubit/states.dart';
-import 'package:shop_app/modules/search/search_screen.dart';
-import 'package:shop_app/shared/components/components.dart';
+import 'package:Sallate/modules/search/search_screen.dart';
+import 'package:Sallate/shared/components/components.dart';
 
 class ShopLayout extends StatelessWidget {
   @override

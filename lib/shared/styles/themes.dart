@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:shop_app/shared/styles/colors.dart';
+import 'package:Sallate/shared/styles/colors.dart';
 
 ThemeData lightTheme = ThemeData(
   textTheme: TextTheme(

@@ -1,14 +1,15 @@
+import 'package:Sallate/layout/shop_app/cubit/shopCubit.dart';
+import 'package:Sallate/layout/shop_app/cubit/states.dart';
+import 'package:Sallate/modules/categories/categories_details.dart';
+import 'package:Sallate/modules/products/product_details.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/layout/shop_app/cubit/shopCubit.dart';
-import 'package:shop_app/layout/shop_app/cubit/states.dart';
-import 'package:shop_app/models/categories_model.dart';
-import 'package:shop_app/models/home_model.dart';
-import 'package:shop_app/shared/components/components.dart';
-import 'package:shop_app/shared/styles/colors.dart';
+import 'package:Sallate/models/categories_model.dart';
+import 'package:Sallate/models/home_model.dart';
+import 'package:Sallate/shared/components/components.dart';
 
 class ProductsScreen extends StatelessWidget {
   @override
@@ -95,8 +96,8 @@ class ProductsScreen extends StatelessWidget {
                     child: ListView.separated(
                       physics: BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) =>
-                          buildCategoryItem(categoriesModel.data!.data![index]),
+                      itemBuilder: (context, index) => buildCategoryItem(
+                          context, categoriesModel.data!.data![index]),
                       separatorBuilder: (context, index) => SizedBox(
                         width: 10.0,
                       ),
@@ -139,20 +140,28 @@ class ProductsScreen extends StatelessWidget {
         ),
       );
 
-  Widget buildCategoryItem(DataModel model) => Stack(
+  Widget buildCategoryItem(context, DataModel model) => Stack(
         alignment: AlignmentDirectional.bottomCenter,
         children: [
-          CachedNetworkImage(
-            imageUrl: "${model.image}",
-            placeholder: (context, url) => SizedBox(
-              height: 100.0,
-              child: Center(
-                child: CircularProgressIndicator(),
+          InkWell(
+            onTap: () => navigateTo(
+              context,
+              CategoriesDetails(
+                homeModel: ShopCubit.get(context).homeModel,
               ),
             ),
-            width: 100.0,
-            height: 100.0,
-            fit: BoxFit.cover,
+            child: CachedNetworkImage(
+              imageUrl: "${model.image}",
+              placeholder: (context, url) => SizedBox(
+                height: 100.0,
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+              width: 100.0,
+              height: 100.0,
+              fit: BoxFit.cover,
+            ),
           ),
           Container(
             color: Colors.black.withOpacity(.8),
@@ -168,125 +177,5 @@ class ProductsScreen extends StatelessWidget {
             ),
           ),
         ],
-      );
-
-  Widget buildGridProduct(ProductModel model, cubit, BuildContext context) =>
-      Container(
-        color: Colors.white,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Stack(
-              alignment: AlignmentDirectional.bottomStart,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(bottom: 8.0),
-                  child: CachedNetworkImage(
-                    imageUrl: "${model.image}",
-                    placeholder: (context, url) => SizedBox(
-                      height: 200.0,
-                      child: Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    ),
-                    height: 200.0,
-                    width: double.infinity,
-                  ),
-                ),
-                if (model.discount != 0)
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10.0),
-                    decoration: BoxDecoration(
-                      color: Colors.red[600],
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(100.0),
-                      ),
-                    ),
-                    child: Text(
-                      "Discount",
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.0),
-              child: Column(
-                children: [
-                  Text(
-                    "${model.name}",
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      height: 1.3,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "${model.price.round()} \$",
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.w500,
-                          color: defaultColor,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 5.0,
-                      ),
-                      if (model.discount != 0)
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10.0),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[400],
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                          child: Text(
-                            "${model.oldPrice.round()}",
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white,
-                              decoration: TextDecoration.lineThrough,
-                            ),
-                          ),
-                        ),
-                      Spacer(),
-                      IconButton(
-                        onPressed: () {
-                          cubit.changeFavorites(model.id);
-                        },
-                        icon: CircleAvatar(
-                          radius: 15.0,
-                          backgroundColor: cubit.favourites[model.id]
-                              ? defaultColor
-                              : Colors.grey,
-                          child: Icon(
-                            Icons.favorite_border,
-                            size: 20.0,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
       );
 }

@@ -1,5 +1,5 @@
-import 'package:shop_app/models/change_favorites.dart';
-import 'package:shop_app/models/login_model.dart';
+import 'package:Sallate/models/change_favorites.dart';
+import 'package:Sallate/models/login_model.dart';
 
 abstract class ShopStates {}
 

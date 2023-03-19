@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/modules/search/cubit/cubit.dart';
-import 'package:shop_app/modules/search/cubit/states.dart';
-import 'package:shop_app/shared/components/components.dart';
+import 'package:Sallate/modules/search/cubit/cubit.dart';
+import 'package:Sallate/modules/search/cubit/states.dart';
+import 'package:Sallate/shared/components/components.dart';
 
 class SearchScreen extends StatelessWidget {
   var formKey = GlobalKey<FormState>();

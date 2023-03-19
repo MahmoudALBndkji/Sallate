@@ -1,9 +1,11 @@
+import 'package:Sallate/modules/categories/categories_details.dart';
+import 'package:Sallate/shared/components/components.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/layout/shop_app/cubit/shopCubit.dart';
-import 'package:shop_app/layout/shop_app/cubit/states.dart';
-import 'package:shop_app/models/categories_model.dart';
+import 'package:Sallate/layout/shop_app/cubit/shopCubit.dart';
+import 'package:Sallate/layout/shop_app/cubit/states.dart';
+import 'package:Sallate/models/categories_model.dart';
 
 class CategoriesScreen extends StatelessWidget {
   @override
@@ -38,7 +40,12 @@ class CategoriesScreen extends StatelessWidget {
             bottomRight: Radius.circular(30.0),
             topRight: Radius.circular(30.0),
           ),
-          onTap: () {},
+            onTap: () => navigateTo(
+              context,
+              CategoriesDetails(
+                homeModel: ShopCubit.get(context).homeModel,
+              ),
+            ),
           child: Row(
             children: [
               Stack(

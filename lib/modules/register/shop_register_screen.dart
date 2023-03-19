@@ -1,12 +1,12 @@
+import 'package:Sallate/layout/shop_app/shopLayout.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/layout/shop_app/shopLayout.dart';
-import 'package:shop_app/modules/register/cubit/cubit.dart';
-import 'package:shop_app/modules/register/cubit/states.dart';
-import 'package:shop_app/shared/components/components.dart';
-import 'package:shop_app/shared/components/constants.dart';
-import 'package:shop_app/shared/network/local/cache_helper.dart';
+import 'package:Sallate/modules/register/cubit/cubit.dart';
+import 'package:Sallate/modules/register/cubit/states.dart';
+import 'package:Sallate/shared/components/components.dart';
+import 'package:Sallate/shared/components/constants.dart';
+import 'package:Sallate/shared/network/local/cache_helper.dart';
 
 class ShopRegisterScreen extends StatelessWidget {
   TextEditingController nameController = TextEditingController();
@@ -65,9 +65,10 @@ class ShopRegisterScreen extends StatelessWidget {
                         ),
                         Text(
                           "Register to browse our hot offers",
-                          style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                                color: Colors.grey,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodyText1!.copyWith(
+                                    color: Colors.grey,
+                                  ),
                         ),
                         SizedBox(
                           height: 30.0,
@@ -102,8 +103,7 @@ class ShopRegisterScreen extends StatelessWidget {
                           controller: passwordController,
                           prefixIcon: Icons.password,
                           suffixIcon: cubit.suffix,
-                          suffixPressed: () => cubit
-                              .changePasswordVisibility(),
+                          suffixPressed: () => cubit.changePasswordVisibility(),
                           labelText: "Password",
                           keyboardType: TextInputType.visiblePassword,
                           validation: (value) {
@@ -118,7 +118,7 @@ class ShopRegisterScreen extends StatelessWidget {
                           controller: phoneController,
                           prefixIcon: Icons.phone,
                           labelText: "Phone",
-                          keyboardType: TextInputType.visiblePassword,
+                          keyboardType: TextInputType.phone,
                           validation: (value) {
                             if (value.isEmpty) return "Please Enter Your Phone";
                           },
